@@ -11,7 +11,11 @@ let rec reverse_tr a b =
     h::t -> reverse_tr t (h :: b)
     | [] -> b;;
 
-let rec fact n = if n = 0 || n = 1 then 1 else n * fact (n - 1);;
+let rec fact n =
+  if n = 0 || n = 1 then
+    1
+  else
+    n * fact (n - 1);;
 
 (* Retornar listas com os valores de indice par de l *)
 let rec evens l =
