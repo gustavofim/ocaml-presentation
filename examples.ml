@@ -1,15 +1,4 @@
-(* Algumas variáveis *)
-let ord_int = [1; 2; 3; 4; 5];;
-let unord_int = [3; 4; 5; 1; 9];;
-let bool_list = [true; false; true; true; false];;
-
-let sum a b = a + b;;
-
-(* Reverter lista usando tail recursion *)
-let rec reverse_tr a b =
-  match a with
-    h::t -> reverse_tr t (h :: b)
-    | [] -> b;;
+let plus a b = a + b;;
 
 let rec fact n =
   if n = 0 || n = 1 then
@@ -17,20 +6,71 @@ let rec fact n =
   else
     n * fact (n - 1);;
 
-(* Retornar listas com os valores de indice par de l *)
-let rec evens l =
-  match l with
-    _::h::t -> h :: evens t
-    | _ -> [];;
+let tail_fact n =
+  let rec inner_fact n a =
+    match n with
+      0 | 1 -> a
+      | _ -> inner_fact (n - 1) (n * a)
+  in inner_fact n 1;;
 
-(* Conta o número de trues em uma lista usando tail recursion *)
-let rec count_true_r l c =
+let rec map f l =
   match l with
-    [] -> c
-    | h::t ->
-      if h = true then
-        count_true_r t (c + 1)
-      else 
-        count_true_r t c;;
+    [] -> []
+    | h :: t -> f h :: map f t;;
 
-let count_true l = count_true_r l 0;;
+type 'a bst =
+    Vert of 'a * 'a bst * 'a bst
+    | Null;;
+
+let rec add n t =
+  match t with
+    Null -> Vert (n, Null, Null)
+    | Vert (i, l, r) ->
+      if n > i
+        then Vert (i, l, add n r)
+      else if n < i
+        then Vert (i, add n l, r)
+      else t;;       
+
+let rec tree_list t =
+  match t with
+    Null -> []
+    | Vert (i, l, r) -> tree_list l @ [i] @ tree_list r;;   
+
+let fact n =
+    let t = ref 1 in
+      for i = 1 to n do
+        t := !t * i
+      done;
+    !t;;
+
+let swap a b =
+  let t = !a in
+    a := !b;
+    b := t;;
+
+class stack =
+  object (self)
+    val mutable the_list = ([] : int list)
+    val mutable length = 0
+
+    method push x =
+      the_list <- x :: the_list;
+      length <- length + 1
+
+    method pop =
+      match the_list with
+        [] -> raise Not_found
+        | h :: t ->
+          the_list <- t;
+          length <- length - 1;
+          h
+
+    method peek =
+      match the_list with
+        [] -> raise Not_found
+        | h :: t -> h
+
+    method len =
+      length
+  end;;
