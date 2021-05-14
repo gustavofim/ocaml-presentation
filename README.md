@@ -205,6 +205,13 @@ Vantagem: Complexidade de espaço não é mais proporcional a n!
   end;;
 ```
 
+### Usando arquivos .ml
+No interpretador:
+
+```ocaml
+# #use "examples.ml";;
+```
+
 ### Referências
 - Livro: OCaml from the Very Beginning;
 - Site: ocaml.org/learn/
