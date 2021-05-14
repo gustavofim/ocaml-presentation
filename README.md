@@ -111,6 +111,16 @@ Vantagem: Complexidade de espaço não é mais proporcional a n!
 ```
 `val plus : int -> int -> int = <fun>`
 
+```ocaml
+# let plus3 = plus 3;;
+```
+`val plus3 : int -> int = <fun>`
+
+```ocaml
+# plus3 5;;
+```
+`- : int = 8`
+
 ### Map
 ```ocaml
 # let rec map f l =
